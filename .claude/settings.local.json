@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git rm *)",
+      "Bash(npx tsc *)",
+      "Bash(echo \"tsc exit $?\")",
+      "Bash(npx expo *)",
+      "Bash(echo \"lint exit $?\")",
+      "Bash(python3 -)",
+      "Bash(npm ls *)",
+      "Bash(git mv *)",
+      "Bash(mv src/global.css global.css)",
+      "Bash(npx prettier *)"
+    ]
+  }
+}
