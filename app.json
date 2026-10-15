@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "RestaurantApp",
-    "slug": "RestaurantApp",
+    "name": "subscriptions-tracker-app",
+    "slug": "subscriptions-tracker-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "restaurantapp",
+    "scheme": "subscriptions-tracker-app",
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon"
