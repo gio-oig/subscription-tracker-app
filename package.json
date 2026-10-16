@@ -5,6 +5,7 @@
   "dependencies": {
     "@expo/ui": "~57.0.24",
     "@react-navigation/native": "^7.5.0",
+    "clsx": "^2.1.1",
     "expo": "~57.0.29",
     "expo-constants": "~57.0.21",
     "expo-device": "~57.0.2",
