@@ -17,6 +17,14 @@
   --color-destructive: #dc2626;
   --color-subscription: #8fd1bd;
 
+  --font-sans: "PlusJakartaSans-Regular";
+  --font-jakarta-light: "PlusJakartaSans-Light";
+  --font-jakarta: "PlusJakartaSans-Regular";
+  --font-jakarta-medium: "PlusJakartaSans-Medium";
+  --font-jakarta-semibold: "PlusJakartaSans-SemiBold";
+  --font-jakarta-bold: "PlusJakartaSans-Bold";
+  --font-jakarta-extrabold: "PlusJakartaSans-ExtraBold";
+
   --spacing-0: 0px;
   --spacing-1: 4px;
   --spacing-2: 8px;
