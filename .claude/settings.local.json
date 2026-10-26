@@ -10,7 +10,24 @@
       "Bash(npm ls *)",
       "Bash(git mv *)",
       "Bash(mv src/global.css global.css)",
-      "Bash(npx prettier *)"
+      "Bash(npx prettier *)",
+      "Bash(xcrun simctl *)",
+      "Bash(xcode-select -p)",
+      "Bash(open -a Simulator)",
+      "Bash(perl -e 'select\\(undef,undef,undef,3\\)')",
+      "Bash(open \"$\\(xcode-select -p\\)/Applications/Simulator.app\")",
+      "Bash(mdfind \"kMDItemCFBundleIdentifier == 'com.apple.iphonesimulator'\")",
+      "Read(//Applications/Xcode.app/Contents/Developer/**)",
+      "Read(//Applications/**)",
+      "Bash(xcodebuild -version)",
+      "Bash(find /Applications/Xcode.app -maxdepth 5 -name \"*.app\" -type d 2>/dev/null | head -20)",
+      "Read(//Applications/Xcode.app/**)",
+      "Bash(open \"/Applications/Xcode.app/Contents/Applications/DeviceHub.app\")",
+      "Bash(perl -e 'select\\(undef,undef,undef,4\\)')",
+      "Bash(git checkout *)",
+      "Bash(git add *)",
+      "Bash(git commit -q -m 'feat\\(tabs\\): add tab layout, tab icons, constants and assets *)",
+      "Bash(git push *)"
     ]
   }
 }
