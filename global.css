@@ -65,7 +65,7 @@
   }
 
   .home-user {
-    @apply flex-row items-center;
+    @apply mr-3 flex-1 flex-row items-center;
   }
 
   .home-avatar {
@@ -73,7 +73,7 @@
   }
 
   .home-user-name {
-    @apply ml-4 font-sans-bold text-2xl text-primary;
+    @apply ml-4 shrink font-sans-bold text-2xl text-primary;
   }
 
   .home-add-icon {
@@ -346,6 +346,94 @@
 
   .auth-link {
     @apply font-sans-bold text-sm text-accent;
+  }
+
+  .auth-back {
+    @apply mb-2 size-10 items-center justify-center rounded-full border border-border bg-card;
+  }
+
+  .auth-back-icon {
+    @apply size-5;
+  }
+
+  .auth-logo-image {
+    @apply size-14 rounded-2xl;
+  }
+
+  .auth-input-wrap {
+    @apply flex-row items-center rounded-2xl border border-border bg-background pr-4;
+  }
+
+  .auth-input-focused {
+    @apply border-accent;
+  }
+
+  .auth-input-text {
+    @apply flex-1 px-4 py-4 font-sans-medium text-base text-primary;
+  }
+
+  .auth-input-toggle {
+    @apply font-sans-bold text-sm text-accent;
+  }
+
+  .auth-code-input {
+    @apply text-center font-sans-bold text-2xl tracking-[8px];
+  }
+
+  .auth-banner {
+    @apply rounded-2xl border border-destructive/25 bg-destructive/10 px-4 py-3;
+  }
+
+  .auth-banner-text {
+    @apply font-sans-medium text-sm text-destructive;
+  }
+
+  .auth-notice {
+    @apply rounded-2xl border border-accent/30 bg-accent/10 px-4 py-3;
+  }
+
+  .auth-notice-text {
+    @apply font-sans-medium text-sm text-primary;
+  }
+
+  .auth-notice-strong {
+    @apply font-sans-bold text-primary;
+  }
+
+  .auth-row-end {
+    @apply -mt-1 flex-row justify-end;
+  }
+
+  .auth-rules {
+    @apply gap-1.5;
+  }
+
+  .auth-rule-row {
+    @apply flex-row items-center gap-2;
+  }
+
+  .auth-rule-dot {
+    @apply size-1.5 rounded-full bg-black/20;
+  }
+
+  .auth-rule-dot-met {
+    @apply bg-success;
+  }
+
+  .auth-rule-text {
+    @apply font-sans-medium text-xs text-muted-foreground;
+  }
+
+  .auth-rule-text-met {
+    @apply text-success;
+  }
+
+  .auth-trust {
+    @apply mt-6 text-center font-sans-medium text-xs text-muted-foreground;
+  }
+
+  .auth-resend-row {
+    @apply flex-row items-center justify-center gap-1;
   }
 
   .modal-overlay {
