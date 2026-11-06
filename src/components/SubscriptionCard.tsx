@@ -22,6 +22,8 @@ export default function SubscriptionCard({
   startDate,
   status,
 }: SubscriptionCardProps) {
+  const NotProvided = "Not provided";
+
   return (
     <Pressable
       onPress={onPress}
@@ -42,10 +44,10 @@ export default function SubscriptionCard({
             </Text>
           </View>
         </View>
-        <Text className="sub-price-box">
+        <View className="sub-price-box">
           <Text className="sub-price">{formatCurrency(price, currency)}</Text>
           <Text className="sub-billing">{billing}</Text>
-        </Text>
+        </View>
       </View>
 
       {expanded && (
@@ -59,7 +61,7 @@ export default function SubscriptionCard({
                   numberOfLines={1}
                   ellipsizeMode="tail"
                 >
-                  {category?.trim() || plan?.trim()}
+                  {category?.trim() || plan?.trim() || NotProvided}
                 </Text>
               </View>
             </View>
@@ -72,7 +74,9 @@ export default function SubscriptionCard({
                   numberOfLines={1}
                   ellipsizeMode="tail"
                 >
-                  {startDate ? formatSubscriptionDateTime(startDate) : ""}
+                  {startDate
+                    ? formatSubscriptionDateTime(startDate)
+                    : NotProvided}
                 </Text>
               </View>
             </View>
@@ -85,7 +89,7 @@ export default function SubscriptionCard({
                   numberOfLines={1}
                   ellipsizeMode="tail"
                 >
-                  {paymentMethod?.trim()}
+                  {paymentMethod?.trim() || NotProvided}
                 </Text>
               </View>
             </View>
@@ -98,7 +102,9 @@ export default function SubscriptionCard({
                   numberOfLines={1}
                   ellipsizeMode="tail"
                 >
-                  {renewalDate ? formatSubscriptionDateTime(renewalDate) : ""}
+                  {renewalDate
+                    ? formatSubscriptionDateTime(renewalDate)
+                    : NotProvided}
                 </Text>
               </View>
             </View>
@@ -111,7 +117,7 @@ export default function SubscriptionCard({
                   numberOfLines={1}
                   ellipsizeMode="tail"
                 >
-                  {status ? formatStatusLabel(status) : ""}
+                  {status ? formatStatusLabel(status) : NotProvided}
                 </Text>
               </View>
             </View>

@@ -1,6 +1,62 @@
-import type { ImageSourcePropType } from "react-native";
+import type { ReactNode, Ref } from "react";
+import type {
+  ImageSourcePropType,
+  TextInput,
+  TextInputProps,
+} from "react-native";
 
 declare global {
+  type AuthFieldName = "email" | "password" | "code";
+
+  type AuthFieldErrors = Partial<Record<AuthFieldName, string>>;
+
+  interface ParsedAuthError {
+    fields: AuthFieldErrors;
+    codes: string[];
+    message?: string;
+  }
+
+  interface AuthScreenProps {
+    title: string;
+    subtitle: string;
+    children: ReactNode;
+    footer?: ReactNode;
+    onBack?: () => void;
+  }
+
+  interface AuthFieldProps extends TextInputProps {
+    label: string;
+    error?: string;
+    hint?: string;
+    secure?: boolean;
+    inputClassName?: string;
+    ref?: Ref<TextInput>;
+  }
+
+  interface AuthButtonProps {
+    label: string;
+    onPress: () => void;
+    loading?: boolean;
+    disabled?: boolean;
+    variant?: "primary" | "secondary";
+  }
+
+  interface AuthMessageProps {
+    message?: string;
+    tone?: "error" | "info";
+    children?: ReactNode;
+  }
+
+  interface PasswordChecklistProps {
+    password: string;
+  }
+
+  interface ResendCodeProps {
+    remaining: number;
+    disabled?: boolean;
+    onResend: () => void;
+  }
+
   interface AppTab {
     name: string;
     title: string;
