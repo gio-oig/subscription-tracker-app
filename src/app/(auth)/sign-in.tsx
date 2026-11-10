@@ -16,6 +16,7 @@ import {
   validateEmail,
   validateNewPassword,
 } from "@/lib/auth";
+import { posthog, posthogLogger } from "@/lib/posthog";
 import { useSignIn } from "@clerk/expo";
 import { Link, useLocalSearchParams } from "expo-router";
 import { useRef, useState } from "react";
@@ -82,9 +83,13 @@ export default function SignIn() {
     }
   };
 
-  const finalize = async () => {
+  const finalize = async (
+    event: "user_signed_in" | "password_reset_completed",
+  ) => {
     const { error } = await signIn.finalize({ navigate: navigateToApp });
-    if (error) applyError(error);
+    if (error) return applyError(error);
+    posthog?.capture(event);
+    posthogLogger.info("authentication completed", { auth_flow: event });
   };
 
   const sendSecondFactorCode = async (strategy: SecondFactor) => {
@@ -102,8 +107,10 @@ export default function SignIn() {
   };
 
   // Routes the attempt to whatever Clerk asks for next after a password step.
-  const continueSignIn = async () => {
-    if (signIn.status === "complete") return finalize();
+  const continueSignIn = async (
+    event: "user_signed_in" | "password_reset_completed" = "user_signed_in",
+  ) => {
+    if (signIn.status === "complete") return finalize(event);
 
     if (
       signIn.status === "needs_second_factor" ||
@@ -164,7 +171,7 @@ export default function SignIn() {
             : await signIn.mfa.verifyTOTP({ code });
       if (error) return applyError(error);
 
-      if (signIn.status === "complete") return finalize();
+      if (signIn.status === "complete") return finalize("user_signed_in");
       setFormError("We couldn't verify that code. Please try again.");
     });
   };
@@ -218,7 +225,7 @@ export default function SignIn() {
       });
       if (error) return applyError(error);
 
-      await continueSignIn();
+      await continueSignIn("password_reset_completed");
     });
   };
 

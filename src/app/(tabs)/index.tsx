@@ -8,6 +8,7 @@ import {
 } from "@/constants/data";
 import { icons } from "@/constants/icons";
 import images from "@/constants/images";
+import { posthog } from "@/lib/posthog";
 import { formatCurrency } from "@/lib/utils";
 import { useUser } from "@clerk/expo";
 import dayjs from "dayjs";
@@ -90,9 +91,17 @@ export default function Index() {
             {...item}
             expanded={expandedSubscriptionId === item.id}
             onPress={() =>
-              setExpandedSubscriptionId((currentId) =>
-                currentId === item.id ? null : item.id,
-              )
+              setExpandedSubscriptionId((currentId) => {
+                if (currentId !== item.id) {
+                  posthog?.capture("subscription_expanded", {
+                    subscription_id: item.id,
+                    category: item.category!,
+                    billing_interval: item.billing,
+                    status: item.status!,
+                  });
+                }
+                return currentId === item.id ? null : item.id;
+              })
             }
           />
         )}

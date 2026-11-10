@@ -5,6 +5,7 @@ import { ActivityIndicator, Alert, Pressable, Text, View } from "react-native";
 import { styled } from "react-native-css";
 import { SafeAreaView as RNSafeAreaView } from "react-native-safe-area-context";
 import { colors } from "@/constants/theme";
+import { posthog, posthogLogger } from "@/lib/posthog";
 
 const SafeAreaView = styled(RNSafeAreaView);
 
@@ -18,6 +19,11 @@ export default function Settings() {
     try {
       // The root layout's protected routes send the user back to sign-in.
       await signOut();
+      posthog?.capture("user_signed_out");
+      posthogLogger.info("authentication session ended", {
+        auth_flow: "sign_out",
+      });
+      posthog?.reset();
     } catch {
       setSigningOut(false);
       Alert.alert(

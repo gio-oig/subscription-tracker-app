@@ -1,10 +1,13 @@
 import "@/global.css";
-import { ClerkProvider, useAuth } from "@clerk/expo";
+import { ClerkProvider, useAuth, useUser } from "@clerk/expo";
 import { tokenCache } from "@clerk/expo/token-cache";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { PostHogProvider, usePostHog } from "posthog-react-native";
+import { useEffect, useRef } from "react";
+
+import { posthog } from "@/lib/posthog";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -14,6 +17,31 @@ if (!publishableKey) {
   throw new Error(
     "Missing EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY. Add it to your .env file.",
   );
+}
+
+function PostHogIdentity() {
+  const posthog = usePostHog();
+  const { isLoaded, user } = useUser();
+  const identifiedUserId = useRef<string | undefined>(undefined);
+
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    if (!user) {
+      identifiedUserId.current = undefined;
+      return;
+    }
+
+    if (identifiedUserId.current === user.id) return;
+
+    const email = user.primaryEmailAddress?.emailAddress;
+    posthog.identify(user.id, {
+      $set: email ? { email } : {},
+    });
+    identifiedUserId.current = user.id;
+  }, [isLoaded, posthog, user]);
+
+  return null;
 }
 
 function RootNavigator({ fontsReady }: { fontsReady: boolean }) {
@@ -58,9 +86,18 @@ export default function RootLayout() {
     "PlusJakartaSans-ExtraBold": require("../../assets/fonts/PlusJakartaSans-ExtraBold.ttf"),
   });
 
+  const navigator = <RootNavigator fontsReady={loadedFonts || !!fontError} />;
+
   return (
     <ClerkProvider publishableKey={publishableKey!} tokenCache={tokenCache}>
-      <RootNavigator fontsReady={loadedFonts || !!fontError} />
+      {posthog ? (
+        <PostHogProvider client={posthog}>
+          <PostHogIdentity />
+          {navigator}
+        </PostHogProvider>
+      ) : (
+        navigator
+      )}
     </ClerkProvider>
   );
 }

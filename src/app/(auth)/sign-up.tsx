@@ -16,6 +16,7 @@ import {
   validateEmail,
   validateNewPassword,
 } from "@/lib/auth";
+import { posthog, posthogLogger } from "@/lib/posthog";
 import { useSignUp } from "@clerk/expo";
 import { Link, router } from "expo-router";
 import { useRef, useState } from "react";
@@ -63,7 +64,11 @@ export default function SignUp() {
 
   const finalize = async () => {
     const { error } = await signUp.finalize({ navigate: navigateToApp });
-    if (error) applyError(error);
+    if (error) return applyError(error);
+    posthog?.capture("account_created");
+    posthogLogger.info("account creation completed", {
+      auth_flow: "sign_up",
+    });
   };
 
   const sendCode = async () => {
